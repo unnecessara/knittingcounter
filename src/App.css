@@ -15,10 +15,12 @@
   justify-content: center;
 }
 
-.main-content {
+.counters {
   margin-top: 50px;
+  display: flex;
+  justify-content: center;
 }
 
-.counter-form {
+.counter-forms {
   margin-top: 50px;
 }

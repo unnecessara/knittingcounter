@@ -1,3 +1,8 @@
-#empty-list-banner {
+
+.counters-list {
+    display:flex;
+    flex-direction: column;
+}
+.empty-list-banner {
     color: #555;
 }

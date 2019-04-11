@@ -1,0 +1,61 @@
+
+
+.counter {
+    border: thin solid #eee;
+    padding: 60px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    color: #555;
+    border-radius: 15px;
+    margin-bottom: 50px;
+}
+
+.info {
+    /* background-color: lightgreen; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-right: 80px;
+}
+
+.info .label {
+    text-transform: uppercase; 
+    color: #888;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.info .value {
+    margin-bottom: 30px;
+}
+
+.controls {
+    /* background-color: lightblue; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-left: 100px;
+    padding-right: 100px;
+
+}
+
+.controls .current-count {
+    font-size: 54px;
+    font-weight: lighter;
+}
+
+.controls .arrow-control {
+    font-size: 44px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.removeBtn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    cursor: pointer;
+}

@@ -12,9 +12,18 @@ class App extends Component {
 
     this.state = {
         //data: localData || {},
-        data: [],
+        data: [
+          {
+            id: -1,
+            name: "Example Sleeve Counter",
+            steps: 10,
+            notes: "K14, SL2, P6"
+          }
+        ],
     };
   }
+
+  
   
   updateLocalStorage = () => {
     // if (typeof Storage !== 'undefined')
@@ -75,12 +84,14 @@ class App extends Component {
 			<header className="App-header">
 				<img src={logo} className="App-logo" alt="logo" />
 			</header>
-			<section className="main-content">
+			<section className="counters">
 				<CounterList
 					counters={this.state.data}
 					remove={this.removeCounter}
 				/>
-				<div className="counter-form">
+      </section>
+      <section className="counter-forms">
+				<div>
 					<CounterForm addCounter={this.addCounter} />
 				</div>
 			</section>
