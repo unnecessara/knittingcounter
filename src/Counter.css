@@ -1,12 +1,12 @@
 .counter {
     border: thin solid #eee;
-    padding: 60px;
+    padding: 50px;
     display: flex;
     justify-content: center;
     position: relative;
     color: #555;
     border-radius: 15px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 }
 
 .info {

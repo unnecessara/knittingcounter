@@ -3,7 +3,7 @@
 }
 
 .App-logo {
-  height: 30vmin;
+  height: 25vmin;
   pointer-events: none;
 }
 
@@ -16,11 +16,19 @@
 }
 
 .counters {
-  margin-top: 50px;
+  margin-top: 40px;
   display: flex;
   justify-content: center;
 }
 
 .counter-forms {
-  margin-top: 50px;
+  margin-bottom: 50px;
+  color: #555;
+}
+
+.footer {
+  padding: 20px;
+  background-color: #555;
+  color: white;
+  font-size: 14px;
 }

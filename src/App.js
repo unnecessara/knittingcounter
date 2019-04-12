@@ -109,13 +109,21 @@ class App extends Component {
 					<CounterList
 						counters={this.state.counters}
 						remove={this.removeCounter}
-                        addOne={this.addOne}
-                        subtractOne={this.subtractOne}
+						addOne={this.addOne}
+						subtractOne={this.subtractOne}
 					/>
 				</section>
 				<section className="counter-forms">
 					<div>
 						<CounterForm addCounter={this.addCounter} />
+					</div>
+				</section>
+				<section className="footer">
+					<div>
+						"There is no wrong way to knit. ... We should
+						all agree to stop correcting each other and deal
+						with the more important issue. How wrong crochet
+						is." - Stephanie McPhee
 					</div>
 				</section>
 			</div>

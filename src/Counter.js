@@ -17,26 +17,20 @@ const Counter = ({ counter, remove, addOne, subtractOne }) => {
 			</div>
 			<div className="controls">
 				<div className="arrow-control control-up" 
-					onClick={() => {
-						addOne(counter.id);
-					}}
+					onClick={() => addOne(counter.id)}
 				>
 					<i className="fas fa-sort-up" />
 				</div>
 				<div className="current-count">{counter.currentStep}</div>
 				<div className="arrow-control control-down" 
-					onClick={() => {
-						subtractOne(counter.id);
-					}}
+					onClick={() => subtractOne(counter.id)}
 				>
 					<i className="fas fa-sort-down" />
 				</div>
 			</div>
 			<div
 				className="removeBtn"
-				onClick={() => {
-					remove(counter.id);
-				}}
+				onClick={() => remove(counter.id)}
 			>
 				X
 			</div>
