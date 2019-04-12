@@ -68,18 +68,20 @@ class App extends Component {
 
 	addOne = id => {
         const counter = this.state.counters.find(counter => counter.id === id);
-        const newCounter = Object.assign({}, counter);
-        counter.currentStep += 1;
-
-        this.setState({newCounter});
+		const newCounter = Object.assign({}, counter);
+		if (counter.currentStep < counter.steps) {
+			counter.currentStep += 1;
+			this.setState({newCounter});
+		}
     }
 
 	subtractOne = id => {
         const counter = this.state.counters.find(counter => counter.id === id);
 		const newCounter = Object.assign({}, counter);
-		counter.currentStep -= 1;
-
-		this.setState({ newCounter });
+		if (counter.currentStep > 0) {
+			counter.currentStep -= 1;
+			this.setState({ newCounter });
+		}	
     }
 
 	componentDidMount = () => {
