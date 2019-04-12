@@ -5,99 +5,120 @@ import CounterForm from './CounterForm.js';
 import CounterList from './CounterList.js';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    
-    // const localData = localStorage.counters && JSON.parse(localStorage.counters);
+	constructor(props) {
+		super(props);
 
-    this.state = {
-        //data: localData || {},
-        data: [
-          {
-            id: -1,
-            name: "Example Sleeve Counter",
-            steps: 10,
-            notes: "K14, SL2, P6"
-          }
-        ],
-    };
-  }
+		// const localData = localStorage.counters && JSON.parse(localStorage.counters);
 
-  
-  
-  updateLocalStorage = () => {
-    // if (typeof Storage !== 'undefined')
-	// 	localStorage.counters = JSON.stringify(this.state.data);
-  }
+		this.state = {
+			//data: localData || {},
+			counters: [
+				{
+					id: -1,
+					name: 'Example Sleeve Counter',
+					steps: 10,
+                    notes: 'K14, SL2, P6',
+                    currentStep: 0,
+				}
+			]
+		};
+	}
 
-  addCounter = (fields) => {
-    let id;
-	// Use local storage count or window's object id + 1
-	// if (typeof Storage !== 'undefined') {
-	// 	id = Number(localStorage.count);
-	// 	localStorage.count = Number(localStorage.count) + 1;
-	// } else {
-	// 	id = window.id++;
-	// }
-    id = window.id++;
-    
-	const counter = {
-    name: fields.name,
-    steps: fields.steps,
-    notes: fields.notes,
-		id: id
-	};
+	updateLocalStorage = () => {
+		// if (typeof Storage !== 'undefined')
+		// 	localStorage.counters = JSON.stringify(this.state.data);
+	}
 
-    this.setState(state => {
-        return {data: this.state.data.concat(counter)}
-    });
-  }
+	addCounter = fields => {
+		let id;
+		// Use local storage count or window's object id + 1
+		// if (typeof Storage !== 'undefined') {
+		// 	id = Number(localStorage.count);
+		// 	localStorage.count = Number(localStorage.count) + 1;
+		// } else {
+		// 	id = window.id++;
+		// }
+		id = window.id++;
 
-  removeCounter = (id) => {
-    const newList = this.state.data.filter(counter => counter.id !== id);
+		const counter = {
+			name: fields.name,
+			steps: fields.steps,
+			notes: fields.notes,
+            id: id,
+            currentStep: 0,
+		};
 
-    this.setState({
-        data: newList
-    }, () => {
-        this.updateLocalStorage();
-    });
-  }
+		this.setState(state => {
+			return { counters: this.state.counters.concat(counter) };
+		});
+	}
 
-  componentDidMount = () => {
-    // localStorage.clear();
-    // if (typeof(Storage) !== "undefined") {
-    //     if(!localStorage.counters) {
-    //         localStorage.counters = JSON.stringify(this.state.data);
-    //     }
-    //     if(!localStorage.count) {
-    //         localStorage.count = 0;
-    //     }
-    // } else {
-    //     console.log("Local storage not available, no counters will be remembered");
-        window.id = 0;
-    // }
-  }
+	removeCounter = id => {
+		const newList = this.state.counters.filter(counter => counter.id !== id);
 
-  render() {
-    return (
-		<div className="App">
-			<header className="App-header">
-				<img src={logo} className="App-logo" alt="logo" />
-			</header>
-			<section className="counters">
-				<CounterList
-					counters={this.state.data}
-					remove={this.removeCounter}
-				/>
-      </section>
-      <section className="counter-forms">
-				<div>
-					<CounterForm addCounter={this.addCounter} />
-				</div>
-			</section>
-		</div>
-	);
-  }
+		this.setState(
+			{
+				counters: newList
+			},
+			() => {
+				this.updateLocalStorage();
+			}
+		);
+	}
+
+	addOne = id => {
+        const counter = this.state.counters.find(counter => counter.id === id);
+        const newCounter = Object.assign({}, counter);
+        counter.currentStep += 1;
+
+        this.setState({newCounter});
+    }
+
+	subtractOne = id => {
+        const counter = this.state.counters.find(counter => counter.id === id);
+		const newCounter = Object.assign({}, counter);
+		counter.currentStep -= 1;
+
+		this.setState({ newCounter });
+    }
+
+	componentDidMount = () => {
+		// localStorage.clear();
+		// if (typeof(Storage) !== "undefined") {
+		//     if(!localStorage.counters) {
+		//         localStorage.counters = JSON.stringify(this.state.data);
+		//     }
+		//     if(!localStorage.count) {
+		//         localStorage.count = 0;
+		//     }
+		// } else {
+		//     console.log("Local storage not available, no counters will be remembered");
+		window.id = 0;
+		// }
+	}
+
+	render() {
+		return (
+			<div className="App">
+				<header className="App-header">
+					<img src={logo} className="App-logo" alt="logo" />
+				</header>
+				<section className="counters">
+					<CounterList
+						counters={this.state.counters}
+						remove={this.removeCounter}
+                        addOne={this.addOne}
+                        subtractOne={this.subtractOne}
+					/>
+				</section>
+				<section className="counter-forms">
+					<div>
+						<CounterForm addCounter={this.addCounter} />
+					</div>
+				</section>
+			</div>
+		);
+	}
 }
 
 export default App;

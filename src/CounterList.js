@@ -2,11 +2,11 @@ import React from 'react';
 import Counter from './Counter.js'
 import './CounterList.css'
 
-const CounterList = ({ counters, remove }) => {
+const CounterList = ({ counters, remove, addOne, subtractOne }) => {
 	let allCounters = [];
     if (counters.length > 0) {
         allCounters = counters.map(counter => {
-            return <Counter key={counter.id} counter={counter} remove={remove} />;
+            return <Counter key={counter.id} counter={counter} remove={remove} addOne={addOne} subtractOne={subtractOne} />;
         });
         return (
 			<div className="counters-list">

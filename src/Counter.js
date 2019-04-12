@@ -1,7 +1,7 @@
 import React from 'react';
 import './Counter.css';
 
-const Counter = ({ counter, remove }) => {
+const Counter = ({ counter, remove, addOne, subtractOne }) => {
 	// Each Todo
 	return (
 		<div className="counter">
@@ -16,11 +16,19 @@ const Counter = ({ counter, remove }) => {
 				<div>{counter.notes}</div>
 			</div>
 			<div className="controls">
-				<div className="arrow-control control-up">
+				<div className="arrow-control control-up" 
+					onClick={() => {
+						addOne(counter.id);
+					}}
+				>
 					<i className="fas fa-sort-up" />
 				</div>
-				<div className="current-count">0</div>
-				<div className="arrow-control control-down">
+				<div className="current-count">{counter.currentStep}</div>
+				<div className="arrow-control control-down" 
+					onClick={() => {
+						subtractOne(counter.id);
+					}}
+				>
 					<i className="fas fa-sort-down" />
 				</div>
 			</div>
