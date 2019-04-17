@@ -9,13 +9,81 @@
     margin-bottom: 20px;
 }
 
+input, span, label {
+    display: block;
+    margin: 10px;
+    padding: 5px;
+    border: none;
+    resize: none;
+}
+
+input:focus {
+    outline: 0;
+}
+
+input.question {
+    color: #555;
+    font-size: 16px;
+    font-weight: lighter;
+    border-radius: 2px;
+    margin: 0;
+    border: none;
+    width: 100%;
+    background: rgba(0, 0, 0, 0);
+    transition: padding-top 0.2s ease, margin-top 0.2s ease;
+    overflow-x: hidden;
+    /* Hack to make "rows" attribute apply in Firefox. */
+}
+
+input.question+label {
+    display: block;
+    position: relative;
+    white-space: nowrap;
+    padding: 0;
+    margin: 0;
+    padding-top: 10px;
+    width: 10%;
+    border-top: 1px solid lightseagreen;
+    -webkit-transition: width 0.4s ease;
+    transition: width 0.4s ease;
+    height: 0px;
+}
+
+input.question:focus+label {
+    width: 100%;
+}
+
+input.question:focus, input.question:valid {
+    padding-top: 40px;
+}
+
+input.question:focus+label>span, input.question:valid+label>span {
+    top: -50px;
+    font-size: 14px;
+    color: #ccc;
+}
+
+input.question+label>span {
+    text-transform: uppercase;
+    margin: 0;
+    position: absolute;
+    color: #888;
+    font-size: 16px;
+    top: -30px;
+    left: 0px;
+    z-index: -1;
+    -webkit-transition: top 0.2s ease, font-size 0.2s ease, color 0.2s ease;
+    transition: top 0.2s ease, font-size 0.2s ease, color 0.2s ease;
+}
+
 .info {
     /* background-color: lightgreen; */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    padding-right: 80px;
+    /* padding-right: 40px; */
+    padding-left: 20px;
 }
 
 .info .label {
@@ -60,4 +128,9 @@
     top: 12px;
     right: 12px;
     cursor: pointer;
+    color: #ddd;
+}
+
+.removeBtn:hover {
+    color: #555;
 }

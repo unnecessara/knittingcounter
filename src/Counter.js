@@ -1,37 +1,75 @@
 import React from 'react';
 import './Counter.css';
 
-const Counter = ({ counter, remove, addOne, subtractOne }) => {
-	// Each Todo
+const Counter = ({ counter, remove, addOne, subtractOne, infoChanged }) => {
+
+	
+	const handleInfoChanged = (event) => {
+		infoChanged(counter.id, event.target.name, event.target.value);
+	};
+
 	return (
 		<div className="counter">
 			<div className="info">
-				<div className="label">Counter Name</div>
-				<div className="value">{counter.name}</div>
+				<input
+					type="text"
+					name="name"
+					className="question"
+					id="nme"
+					required
+					autoComplete="off"
+					value={counter.name}
+					onChange={handleInfoChanged}
+				/>
+				<label htmlFor="nme">
+					<span>name</span>
+				</label>
 
-				<div className="label">Total Steps</div>
-				<div className="value">{counter.steps}</div>
+				<input
+					type="numbers"
+					name="steps"
+					className="question"
+					id="stps"
+					required
+					autoComplete="off"
+					value={counter.steps}
+					onChange={handleInfoChanged}
+				/>
+				<label htmlFor="stps">
+					<span>Steps</span>
+				</label>
 
-				<div className="label">Notes</div>
-				<div>{counter.notes}</div>
+				<input
+					type="text"
+					name="notes"
+					className="question"
+					id="nts"
+					required
+					autoComplete="off"
+					value={counter.notes}
+					onChange={handleInfoChanged}
+				/>
+				<label htmlFor="nts">
+					<span>Note</span>
+				</label>
 			</div>
+
 			<div className="controls">
-				<div className="arrow-control control-up" 
+				<div
+					className="arrow-control control-up"
 					onClick={() => addOne(counter.id)}
 				>
 					<i className="fas fa-sort-up" />
 				</div>
 				<div className="current-count">{counter.currentStep}</div>
-				<div className="arrow-control control-down" 
+				<div
+					className="arrow-control control-down"
 					onClick={() => subtractOne(counter.id)}
 				>
 					<i className="fas fa-sort-down" />
 				</div>
 			</div>
-			<div
-				className="removeBtn"
-				onClick={() => remove(counter.id)}
-			>
+			<div className="removeBtn" onClick={() => remove(counter.id)}>
 				X
 			</div>
 		</div>

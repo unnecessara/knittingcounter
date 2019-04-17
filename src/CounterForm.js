@@ -10,7 +10,7 @@ class CounterForm extends Component {
 		super(props);
 		this.state = {
 			name: '',
-			steps: 10,
+			steps: '',
 			notes: '',
 		};
 	}
@@ -28,7 +28,7 @@ class CounterForm extends Component {
 		this.props.addCounter(this.state);
 		this.setState({
 			name: '',
-			steps: 10,
+			steps: '',
 			notes: ''
 		});
 	}

@@ -66,23 +66,39 @@ class App extends Component {
 		);
 	}
 
-	addOne = id => {
+	handleAddOne = id => {
         const counter = this.state.counters.find(counter => counter.id === id);
 		const newCounter = Object.assign({}, counter);
-		if (counter.currentStep < counter.steps) {
-			counter.currentStep += 1;
-			this.setState({newCounter});
-		}
+		if (newCounter.currentStep < newCounter.steps) {
+			newCounter.currentStep += 1;
+			const newList = this.state.counters.filter(counter => newCounter.id !== id);
+			this.setState(state => {
+				return { counters: [...newList, newCounter] };
+			});
+		};
     }
 
-	subtractOne = id => {
+	handleSubtractOne = id => {
         const counter = this.state.counters.find(counter => counter.id === id);
 		const newCounter = Object.assign({}, counter);
-		if (counter.currentStep > 0) {
-			counter.currentStep -= 1;
-			this.setState({ newCounter });
+		if (newCounter.currentStep > 0) {
+			newCounter.currentStep -= 1;
+			const newList = this.state.counters.filter(counter => newCounter.id !== id);
+			this.setState(state => {
+				return { counters: [...newList, newCounter] };
+			});
 		}	
-    }
+	}
+	
+	handleInfoChange = (id, key, value) => {
+		const counter = this.state.counters.find(counter => counter.id === id);
+		const newCounter = Object.assign({}, counter);
+		newCounter[key] = value;
+		const newList = this.state.counters.filter(counter => newCounter.id !== id);
+		this.setState(state => {
+			return { counters: [...newList, newCounter] };
+		});
+	}
 
 	componentDidMount = () => {
 		// localStorage.clear();
@@ -102,30 +118,38 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
-				<header className="App-header">
-					<img src={logo} className="App-logo" alt="logo" />
-				</header>
-				<section className="counters">
-					<CounterList
-						counters={this.state.counters}
-						remove={this.removeCounter}
-						addOne={this.addOne}
-						subtractOne={this.subtractOne}
-					/>
-				</section>
-				<section className="counter-forms">
-					<div>
-						<CounterForm addCounter={this.addCounter} />
-					</div>
-				</section>
-				<section className="footer">
-					<div>
-						"There is no wrong way to knit. ... We should
-						all agree to stop correcting each other and deal
-						with the more important issue. How wrong crochet
-						is." - Stephanie McPhee
-					</div>
-				</section>
+				<div className="main-content">
+					<header className="App-header">
+						<img
+							src={logo}
+							className="App-logo"
+							alt="logo"
+						/>
+					</header>
+					<section className="counters">
+						<CounterList
+							counters={this.state.counters}
+							remove={this.removeCounter}
+							addOne={this.handleAddOne}
+							subtractOne={this.handleSubtractOne}
+							infoChanged={this.handleInfoChange}
+						/>
+					</section>
+					<section className="counter-forms">
+						<div>
+							<CounterForm addCounter={this.addCounter} />
+						</div>
+					</section>
+					<section className="footer">
+						<div>
+							"There is no wrong way to knit. ... We
+							should all agree to stop correcting each
+							other and deal with the more important
+							issue. How wrong crochet is." - Stephanie
+							McPhee
+						</div>
+					</section>
+				</div>
 			</div>
 		);
 	}
