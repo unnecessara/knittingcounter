@@ -110,6 +110,7 @@ input.question+label>span {
 .controls .current-count {
     font-size: 54px;
     font-weight: lighter;
+    width:65px;
 }
 
 .controls .arrow-control {

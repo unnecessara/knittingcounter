@@ -8,11 +8,11 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 
-		// const localData = localStorage.counters && JSON.parse(localStorage.counters);
+		const localData = localStorage.counters && JSON.parse(localStorage.counters);
 
 		this.state = {
-			//counters: localData || 
-			counters: [
+			counters: localData || 
+			[
 				{
 					id: -1,
 					name: 'Example Sleeve Counter',
@@ -25,20 +25,20 @@ class App extends Component {
 	}
 
 	updateLocalStorage = () => {
-		// if (typeof Storage !== 'undefined')
-		// 	localStorage.counters = JSON.stringify(this.state.counters);
+		if (typeof Storage !== 'undefined') {
+			localStorage.counters = JSON.stringify(this.state.counters);
+		}
 	}
 
 	addCounter = fields => {
 		let id;
 		// Use local storage count or window's object id + 1
-		// if (typeof Storage !== 'undefined') {
-		// 	id = Number(localStorage.count);
-		// 	localStorage.count = Number(localStorage.count) + 1;
-		// } else {
-		// 	id = window.id++;
-		// }
-		id = window.id++;
+		if (typeof Storage !== 'undefined') {
+			id = Number(localStorage.count);
+			localStorage.count = Number(localStorage.count) + 1;
+		} else {
+			id = window.id++;
+		}
 
 		const counter = {
 			name: fields.name,
@@ -50,6 +50,9 @@ class App extends Component {
 
 		this.setState(state => {
 			return { counters: this.state.counters.concat(counter) };
+		},
+		()=> {
+			this.updateLocalStorage();
 		});
 	}
 
@@ -73,9 +76,14 @@ class App extends Component {
 			newList[index].currentStep += 1;
 		};
 
-		this.setState({
+		this.setState(
+			{
 			counters: newList
-		});
+			},
+			()=> {
+				this.updateLocalStorage();
+			}
+		);
     }
 
 	handleSubtractOne = id => {
@@ -85,9 +93,14 @@ class App extends Component {
 			newList[index].currentStep -= 1;
 		};
 
-		this.setState({
-			counters: newList
-		});
+		this.setState(
+			{
+				counters: newList
+			},
+			() => {
+				this.updateLocalStorage();
+			}
+		);
 	}
 	
 	handleInfoChange = (id, key, value) => {
@@ -95,24 +108,29 @@ class App extends Component {
 		const index = newList.findIndex(c => c.id === id);
 		newList[index][key] = value;
 
-		this.setState({
-			counters: newList
-		});
+		this.setState(
+			{
+				counters: newList
+			},
+			() => {
+				this.updateLocalStorage();
+			}
+		);
 	}
 
 	componentDidMount = () => {
-		// localStorage.clear();
-		// if (typeof(Storage) !== "undefined") {
-		//     if(!localStorage.counters) {
-		//         localStorage.counters = JSON.stringify(this.state.counters);
-		//     }
-		//     if(!localStorage.count) {
-		//         localStorage.count = 0;
-		//     }
-		// } else {
-		//     console.log("Local storage not available, no counters will be remembered");
-		window.id = 0;
-		// }
+		localStorage.clear();
+		if (typeof(Storage) !== "undefined") {
+		    if(!localStorage.counters) {
+		        localStorage.counters = JSON.stringify(this.state.counters);
+		    }
+		    if(!localStorage.count) {
+		        localStorage.count = 0;
+		    }
+		} else {
+		    console.log("Local storage not available, no counters will be remembered");
+			window.id = 0;
+		}
 	}
 
 	render() {
