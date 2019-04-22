@@ -3,7 +3,6 @@ import './Counter.css';
 
 const Counter = ({ counter, remove, addOne, subtractOne, infoChanged }) => {
 
-	
 	const handleInfoChanged = (event) => {
 		infoChanged(counter.id, event.target.name, event.target.value);
 	};

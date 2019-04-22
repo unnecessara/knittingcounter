@@ -11,7 +11,7 @@ class App extends Component {
 		// const localData = localStorage.counters && JSON.parse(localStorage.counters);
 
 		this.state = {
-			//data: localData || {},
+			//counters: localData || 
 			counters: [
 				{
 					id: -1,
@@ -26,7 +26,7 @@ class App extends Component {
 
 	updateLocalStorage = () => {
 		// if (typeof Storage !== 'undefined')
-		// 	localStorage.counters = JSON.stringify(this.state.data);
+		// 	localStorage.counters = JSON.stringify(this.state.counters);
 	}
 
 	addCounter = fields => {
@@ -67,36 +67,36 @@ class App extends Component {
 	}
 
 	handleAddOne = id => {
-        const counter = this.state.counters.find(counter => counter.id === id);
-		const newCounter = Object.assign({}, counter);
-		if (newCounter.currentStep < newCounter.steps) {
-			newCounter.currentStep += 1;
-			const newList = this.state.counters.filter(counter => newCounter.id !== id);
-			this.setState(state => {
-				return { counters: [...newList, newCounter] };
-			});
+		const newList = [...this.state.counters];
+		const index = newList.findIndex(c => c.id === id);
+		if (newList[index].currentStep < newList[index].steps) {
+			newList[index].currentStep += 1;
 		};
+
+		this.setState({
+			counters: newList
+		});
     }
 
 	handleSubtractOne = id => {
-        const counter = this.state.counters.find(counter => counter.id === id);
-		const newCounter = Object.assign({}, counter);
-		if (newCounter.currentStep > 0) {
-			newCounter.currentStep -= 1;
-			const newList = this.state.counters.filter(counter => newCounter.id !== id);
-			this.setState(state => {
-				return { counters: [...newList, newCounter] };
-			});
-		}	
+		const newList = [...this.state.counters];
+		const index = newList.findIndex(c => c.id === id);
+		if (newList[index].currentStep > 0) {
+			newList[index].currentStep -= 1;
+		};
+
+		this.setState({
+			counters: newList
+		});
 	}
 	
 	handleInfoChange = (id, key, value) => {
-		const counter = this.state.counters.find(counter => counter.id === id);
-		const newCounter = Object.assign({}, counter);
-		newCounter[key] = value;
-		const newList = this.state.counters.filter(counter => newCounter.id !== id);
-		this.setState(state => {
-			return { counters: [...newList, newCounter] };
+		const newList = [...this.state.counters];
+		const index = newList.findIndex(c => c.id === id);
+		newList[index][key] = value;
+
+		this.setState({
+			counters: newList
 		});
 	}
 
@@ -104,7 +104,7 @@ class App extends Component {
 		// localStorage.clear();
 		// if (typeof(Storage) !== "undefined") {
 		//     if(!localStorage.counters) {
-		//         localStorage.counters = JSON.stringify(this.state.data);
+		//         localStorage.counters = JSON.stringify(this.state.counters);
 		//     }
 		//     if(!localStorage.count) {
 		//         localStorage.count = 0;
@@ -141,18 +141,24 @@ class App extends Component {
 						</div>
 					</section>
 					<section className="footer">
-						<div>
-							"There is no wrong way to knit. ... We
-							should all agree to stop correcting each
-							other and deal with the more important
-							issue. How wrong crochet is." - Stephanie
-							McPhee
-						</div>
+						<QuoteGenerator></QuoteGenerator>
 					</section>
 				</div>
 			</div>
 		);
 	}
+}
+
+const QuoteGenerator = () => {
+	let quoteList = [
+		'“There is practically no activity that cannot be enhanced or replaced by knitting, if you really want to get obsessive about it." -Stephanie McPhee',
+		'"There is no wrong way to knit. ... We should all agree to stop correcting each other and deal with the more important issue. How wrong crochet is." - Stephanie McPhee',
+		'“I will always buy extra yarn. I will not try to tempt fate.” -Stephanie McPhee',
+		'“it is pure potential. Every ball or skein of yarn holds something inside it, and the great mystery of what that might be can be almost spiritual” -Stephanie McPhee'
+	];
+	return (
+		<div>{quoteList[Math.floor(Math.random() * Math.floor(quoteList.length-1))]}</div>
+	);
 }
 
 export default App;
